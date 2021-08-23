@@ -8,6 +8,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PrintPDF.Models;
+using System.Net;
+using PrintPDF.Utilities;
+using System.Threading;
 
 namespace PrintPDF
 {
@@ -15,25 +18,8 @@ namespace PrintPDF
     {
         static void Main(string[] args)
         {
-            string FileToRead = "";
-
-
-            //Impresion de pdf, limite de 10 paginas por archivo.
-
-            if (args.Length == 0)
-            {
-                Console.WriteLine("args is null"); // Check for null array
-                return;
-            }
-            else
-            {
-                //string FileToRead = @"C:\Nueva carpeta\DetailsPrint.json";
-                FileToRead = args[0];
-            }
-            
-
-            //string FileToRead = @"C:\Nueva carpeta\DetailsPrint.json";
-
+            string FileToRead = @"C:\Nueva carpeta\DetailsPrint.json";
+            string PDFtoPrint = @"C:\Nueva carpeta\reporte.pdf";
 
             // Creating string array  
             string[] lines = File.ReadAllLines(FileToRead);
@@ -41,35 +27,71 @@ namespace PrintPDF
             text = String.Join(Environment.NewLine, lines);
             PrintConfigModel jsonBody = JsonConvert.DeserializeObject<PrintConfigModel>(text);
 
-
             //ruta y nomre del archivo
-            string pdfFileName = jsonBody.file_path;
+            string pdfFileName = jsonBody.url_report;
             int pagesPdf = 1;
 
-            //Obtiene el numero de páginas
-            using (StreamReader sr = new StreamReader(File.OpenRead(pdfFileName)))
-            {
-                Regex regex = new Regex(@"/Type\s*/Page[^s]");
-                MatchCollection matches = regex.Matches(sr.ReadToEnd());
-                pagesPdf =  matches.Count;
-            }
 
-            //Obtener numero de paginas del pdf
+
+
+            Console.Write("Preparando archivo... ");
+            using (var progress = new ProgressBar())
+            {
+                for (int i = 0; i <= 100; i++)
+                {
+                    progress.Report((double)i / 100);
+                  //  Thread.Sleep(20);
+                }
+
+                using (WebClient webClient = new WebClient())
+                {
+                    try
+                    {
+                        webClient.DownloadFile(jsonBody.url_report, PDFtoPrint);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Console.WriteLine("Problem: " + ex.Message);
+                    }
+                }
+
+                //Obtiene el numero de páginas
+                using (StreamReader sr = new StreamReader(File.OpenRead(PDFtoPrint)))
+                {
+                    Regex regex = new Regex(@"/Type\s*/Page[^s]");
+                    MatchCollection matches = regex.Matches(sr.ReadToEnd());
+                    pagesPdf = matches.Count;
+                }
+            }
+            Console.WriteLine("Listo.");
+
             for (int i = 0; i < jsonBody.number_prints; i++)
             {
-                // Cargar documento PDF
-                PdfDocument doc = new PdfDocument();
-                doc.LoadFromFile(pdfFileName);
-
-                // Especifica la impresora
+                using (PdfDocument doc = new PdfDocument())
+                {
+                doc.LoadFromFile(PDFtoPrint);
                 doc.PrintSettings.PrinterName = jsonBody.printer_name;
-
-                // Establecer el rango de números de página de impresión del documento
+                    doc.PrintSettings.DocumentName = jsonBody.document_name;
                 doc.PrintSettings.SelectPageRange(1, pagesPdf);
-
-                // Imprimir documento PDF
                 doc.Print();
             }
+               
+            }
+
+
+
+            //Eliminacion de l archivo descargado (PDF)
+            
+            if (File.Exists(PDFtoPrint))
+            {
+                while (File.Exists(PDFtoPrint))
+                {
+                    File.Delete(PDFtoPrint);
+                }
+
+            }
+            
         }
     }
 }
