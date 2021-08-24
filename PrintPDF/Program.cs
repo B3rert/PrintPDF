@@ -18,7 +18,7 @@ namespace PrintPDF
     {
         static void Main(string[] args)
         {
-            string FileToRead = @"C:\Nueva carpeta\DetailsPrint.json";
+            string FileToRead = @"C:\Nueva carpeta\PrintingDetails.json";
             string PDFtoPrint = @"C:\Nueva carpeta\reporte.pdf";
 
             // Creating string array  
@@ -64,6 +64,13 @@ namespace PrintPDF
             }
             Console.WriteLine("Listo.");
 
+
+            /**/
+            
+
+            /**/
+
+
             for (int i = 0; i < jsonBody.number_prints; i++)
             {
                 using (PdfDocument doc = new PdfDocument())
@@ -91,5 +98,6 @@ namespace PrintPDF
             }
             
         }
+
     }
 }
