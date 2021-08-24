@@ -37,18 +37,16 @@ namespace PrintPDF
             Console.Write("Preparando archivo... ");
             using (var progress = new ProgressBar())
             {
-                for (int i = 0; i <= 100; i++)
-                {
-                    progress.Report((double)i / 100);
-                  //  Thread.Sleep(20);
-                }
+                for (int i = 0; i <= 100; i++) {
+				progress.Report((double) i / 100);
+				//Thread.Sleep(20);
+			}
 
                 using (WebClient webClient = new WebClient())
                 {
                     try
                     {
                         webClient.DownloadFile(jsonBody.url_report, PDFtoPrint);
-
                     }
                     catch (Exception ex)
                     {
