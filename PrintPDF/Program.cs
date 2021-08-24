@@ -1,16 +1,11 @@
-﻿using Spire.Pdf;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using PrintPDF.Models;
-using System.Net;
 using PrintPDF.Utilities;
-using System.Threading;
+using Spire.Pdf;
+using System;
+using System.IO;
+using System.Net;
+using System.Text.RegularExpressions;
 
 namespace PrintPDF
 {
