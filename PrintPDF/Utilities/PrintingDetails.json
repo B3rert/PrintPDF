@@ -1,0 +1,14 @@
+/*
+  * tructura Json con los parametros para configurar las impresiones
+  * printer_name = Nombre de la impresora
+  * url_report = PDF que se va a descargar
+  * document_name = Nombre visible al usuario en la cola de la impresion
+  * El archivo debe llamarse com este o cambiar en program el nombre de ola variable FileToRead
+*/
+
+{
+  "printer_name": "Bullzip PDF Printer",
+  "url_report": "http://ds.demosoftonline.com:83/host/fcolor/BusinessAdvantage/Reporte/DownloadFile/3tlyocowmeqflfizsof1qixi145514.pdf",
+  "number_prints": 1,
+  "document_name": "Reporte"
+}
