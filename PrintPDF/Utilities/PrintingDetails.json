@@ -1,14 +1,16 @@
 /*
-  * tructura Json con los parametros para configurar las impresiones
+  * Etructura Json de ejemplo, con los parametros para configurar las impresiones
   * printer_name = Nombre de la impresora
   * url_report = PDF que se va a descargar
   * document_name = Nombre visible al usuario en la cola de la impresion
-  * El archivo debe llamarse com este o cambiar en program el nombre de ola variable FileToRead
+  * report_name = Nombre del pdf que se almacenará temporalmente en el dispositivo del usuario
+  * El archivo debe llamarse como este o cambiar en program.cs el nombre: variable FileToRead
 */
 
 {
   "printer_name": "Bullzip PDF Printer",
-  "url_report": "http://ds.demosoftonline.com:83/host/fcolor/BusinessAdvantage/Reporte/DownloadFile/3tlyocowmeqflfizsof1qixi145514.pdf",
-  "number_prints": 1,
-  "document_name": "Reporte"
+  "url_report": "http://ds.demosoftonline.com:83/host/fcolor/BusinessAdvantage/Reporte/DownloadFile/3tlyocowmeqflfizsof1qixi102911.pdf",
+  "number_prints": 3,
+  "document_name": "Factura Electronica",
+  "report_name": "3tlyocowmeqflfizsof1qixi102911.pdf"
 }

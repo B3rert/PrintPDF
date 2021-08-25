@@ -13,8 +13,11 @@ namespace PrintPDF
     {
         static void Main(string[] args)
         {
-            string FileToRead = @"C:\Nueva carpeta\PrintingDetails.json";
-            string PDFtoPrint = @"C:\Nueva carpeta\reporte.pdf";
+            var currentDirectory = Directory.GetCurrentDirectory();
+            
+
+            string FileToRead = currentDirectory + @"\PrintingDetails.json";
+           
 
             // Creating string array  
             string[] lines = File.ReadAllLines(FileToRead);
@@ -27,7 +30,7 @@ namespace PrintPDF
             int pagesPdf = 1;
 
 
-
+            string PDFtoPrint = currentDirectory +@"\"+jsonBody.report_name;
 
             Console.Write("Preparando archivo... ");
             using (var progress = new ProgressBar())
@@ -45,7 +48,11 @@ namespace PrintPDF
                     }
                     catch (Exception ex)
                     {
-                        System.Console.WriteLine("Problem: " + ex.Message);
+                        Console.Clear();
+                        Console.WriteLine("Algo salió mal: " + ex.Message);
+                        Console.WriteLine("Presione una tecla para Finalizar");
+                        Console.ReadKey();
+                        return;
                     }
                 }
 
@@ -61,28 +68,33 @@ namespace PrintPDF
 
 
             /**/
-            
+            for (int i = 0; i < jsonBody.number_prints; i++)
+            {
+                string info_print = $"{pagesPdf}{Environment.NewLine} Copia {i + 1} de {jsonBody.number_prints}{Environment.NewLine}{Environment.NewLine}{jsonBody.document_name}" ;
+               // string info_print = $"{pagesPdf} (Copia {i + 1} de {jsonBody.number_prints})" ;
+
+                using (PdfDocument doc = new PdfDocument())
+                {
+                    doc.LoadFromFile(PDFtoPrint);
+                    doc.PrintSettings.PrinterName = jsonBody.printer_name;
+                    doc.PrintSettings.DocumentName = info_print;
+                    // doc.PrintSettings.Copies = (short)jsonBody.number_prints; //este metodo es mas rapido que hacer un for o foreach
+                    doc.PrintSettings.SelectPageRange(1, pagesPdf);
+                    doc.Print();
+
+                }
+
+            }
 
             /**/
 
 
-            for (int i = 0; i < jsonBody.number_prints; i++)
-            {
-                using (PdfDocument doc = new PdfDocument())
-                {
-                doc.LoadFromFile(PDFtoPrint);
-                doc.PrintSettings.PrinterName = jsonBody.printer_name;
-                    doc.PrintSettings.DocumentName = jsonBody.document_name;
-                doc.PrintSettings.SelectPageRange(1, pagesPdf);
-                doc.Print();
-            }
-               
-            }
 
 
+            
 
             //Eliminacion de l archivo descargado (PDF)
-            
+
             if (File.Exists(PDFtoPrint))
             {
                 while (File.Exists(PDFtoPrint))

@@ -12,5 +12,6 @@ namespace PrintPDF.Models
         public string url_report { get; set; }
         public int number_prints { get; set; }
         public string document_name { get; set; }
+        public string report_name { get; set; }
     }
 }
