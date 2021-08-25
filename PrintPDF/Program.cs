@@ -86,13 +86,6 @@ namespace PrintPDF
 
             }
 
-            /**/
-
-
-
-
-            
-
             //Eliminacion de l archivo descargado (PDF)
 
             if (File.Exists(PDFtoPrint))
