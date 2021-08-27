@@ -11,12 +11,19 @@ El archivo PrintingDetails.json contiene las especificaciones para imprimir
 ## Estructura del archivo PrintingDetails.json
 ```bash
 {
- "printer_name":"Bullzip PDF Printer", //Nombre de impresora
- "url_report":"http://alojamiento/pdf-test.pdf", //Enlace del pdf
- "number_prints": 1, //Numero de impresiones
- "document_name":"Factura Electronica", //Nombre visible en la cola de impresion
- "report_name":"3tlyocowmeqflfizsof1qixi102911.pdf" //Nombre del pdf descargado, la extension .pdf es necesaria
+ "printer_name":"Bullzip PDF Printer", 
+ "url_report":"http://alojamiento/pdf-test.pdf", 
+ "number_prints": 1, 
+ "document_name":"Factura Electronica", 
+ "report_name":"3tlyocowmeqflfizsof1qixi102911.pdf" 
 }
 ```
+## Donde:
+* printer_name = nombre de la impresora
+* url_report = url del archivo pdf a descargar e imprimir
+* number_prints = numero de impresiones
+* document_name = nombre visible en la cola de impresion
+* report_name = nombre del pdf descargado mientras se ejcuta el programa luego este archivo se elimina 
+ 
 EL programa lee los atributos del archivo JSON, descarga el documento pdf indicado, lo imprime y lo elimina. \
 Se usó una version gratuita de **Sipire.PDF**, esto provoca que haya un limite de impresion de 10 páginas por documento.
