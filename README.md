@@ -18,5 +18,5 @@ El archivo PrintingDetails.json contiene las especificaciones para imprimir
  "report_name":"3tlyocowmeqflfizsof1qixi102911.pdf" //Nombre del pdf descargado, la extension .pdf es necesaria
 }
 ```
-EL programa lee los atributos del archivo JSON, descarga el documento pdf indicado, lo imprime y lo elimina.
+EL programa lee los atributos del archivo JSON, descarga el documento pdf indicado, lo imprime y lo elimina. \
 Se usó una version gratuita de **Sipire.PDF**, esto provoca que haya un limite de impresion de 10 páginas por documento.
