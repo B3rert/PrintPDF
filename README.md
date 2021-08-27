@@ -6,7 +6,7 @@ Impresión de archivos pdf en una impresora especifica usando [Spire.PDF for .NE
 * Añada un archivo con nombre PrintingDetails.json en el directorio del proyetco.
 * Ejecute el pryecto.
 
-El archivo PrintingDetails.json contiene las especificaciones para imprimir
+El archivo PrintingDetails.json contiene las especificaciones para imprimir.
 
 ## Estructura del archivo PrintingDetails.json
 ```bash
