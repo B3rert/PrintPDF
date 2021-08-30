@@ -4,6 +4,7 @@ using PrintPDF.Utilities;
 using Spire.Pdf;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 
@@ -86,7 +87,8 @@ namespace PrintPDF
 
             }
 
-            //Eliminacion de l archivo descargado (PDF)
+            //Eliminacion de archivos archivos descargados
+
 
             if (File.Exists(PDFtoPrint))
             {
@@ -96,7 +98,28 @@ namespace PrintPDF
                 }
 
             }
-            
+
+            if (File.Exists(FileToRead))
+            {
+                while (File.Exists(FileToRead))
+                {
+                    File.Delete(FileToRead);
+                }
+
+            }
+
+
+            DirectoryInfo di = new DirectoryInfo(currentDirectory +@"\");
+            FileInfo[] files = di.GetFiles("*.dsprint")
+                                 .Where(p => p.Extension == ".dsprint").ToArray();
+            foreach (FileInfo file in files)
+                try
+                {
+                    file.Attributes = FileAttributes.Normal;
+                    File.Delete(file.FullName);
+                }
+                catch { }
+
         }
 
     }
