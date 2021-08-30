@@ -4,7 +4,7 @@ El proyecto está hecho para consola.
 
 ## Como usar
 * Restaure los paqutes NuGet .
-* Añada un archivo con nombre PrintingDetails.json en el directorio del proyetco.
+* Añada un archivo con nombre PrintingDetails.json en el directorio del proyetco, donde se encuntre el ejecutable.
 * Ejecute el pryecto.
 
 El archivo PrintingDetails.json contiene las especificaciones para imprimir.
