@@ -1,5 +1,6 @@
 # Impresión de PDF en C# .NET
-Impresión de archivos pdf en una impresora especifica usando [Spire.PDF for .NET](https://www.jianshu.com/go-wild?ac=2&url=https%3A%2F%2Fwww.e-iceblue.cn%2FDownloads%2FSpire-PDF-NET.html).
+Impresión de archivos pdf en una impresora especifica usando [Spire.PDF for .NET](https://www.jianshu.com/go-wild?ac=2&url=https%3A%2F%2Fwww.e-iceblue.cn%2FDownloads%2FSpire-PDF-NET.html). \
+El proyecto está hecho para consola.
 
 ## Como usar
 * Restaure los paqutes NuGet .
