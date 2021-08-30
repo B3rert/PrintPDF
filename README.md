@@ -28,4 +28,5 @@ El archivo PrintingDetails.json contiene las especificaciones para imprimir.
 EL programa lee los atributos del archivo JSON, descarga el documento pdf indicado, lo imprime y lo elimina. 
 
 ## Notas
-Se usó una version gratuita de **Sipire.PDF**, esto provoca que haya un limite de impresion de 10 páginas por documento.
+* Se usó una version gratuita de **Sipire.PDF**, esto provoca que haya un limite de impresion de 10 páginas por documento.
+* No se maneja ninguna intervensión para documentos con más de 10 páginas, por lo que le dará error.
