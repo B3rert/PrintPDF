@@ -3,7 +3,8 @@ Impresión de archivos pdf en una impresora especifica usando [Spire.PDF for .NE
 El proyecto está hecho para consola.
 
 ## Como usar
-* Restaure los paqutes NuGet .
+* Clone el repositorio.
+* Restaure los paqutes NuGet.
 * Añada un archivo con nombre PrintingDetails.json en el directorio del proyetco, donde se encuntre el ejecutable.
 * Ejecute el pryecto.
 
