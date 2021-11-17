@@ -14,9 +14,63 @@ namespace PrintPDF
     {
         static void Main(string[] args)
         {
+
+            //Buscar datos permannetes
+
+            String valueKey = Properties.Settings.Default.Usuario;
+
+            Guid myuuid = Guid.NewGuid();
+            string myuuidAsString = myuuid.ToString().Replace("-", string.Empty);
+            int lengthuuid = myuuidAsString.Length;
+
+
+
+            Console.WriteLine("Your UUID is: " + myuuidAsString + " and length "+ lengthuuid);
+
+            if (valueKey != "usuario")
+            {
+            Console.WriteLine(valueKey);
+
+            }
+            else
+            {
+                Console.WriteLine("No se han enctrodado datos");
+            }
+
+
+            //No hay datos guardados mostar mensajes para activar el producto
+            
+            Console.WriteLine("Usuario:");
+            String user = Console.ReadLine();
+            Console.WriteLine("Cpntraseña:");
+            String pass = Console.ReadLine();
+            Properties.Settings.Default.Usuario = user;
+            Properties.Settings.Default.Save();
+            Console.WriteLine("El texto introducido es: " + user +" "+ pass);
+            Console.ReadKey();
+
+            //verficar inicio de sesiona y avtivacion del producto
+
+            //Guardar datos permanentes
+
+
+
             var currentDirectory = Directory.GetCurrentDirectory(); //Ruta donden se encuntra el programa
             string FileToRead = currentDirectory + @"\PrintingDetails.json"; //Archivo JSON con detalles de impresion
-           
+
+            return;
+
+            /*
+            if (File.Exists(FileToRead))
+            {
+                while (File.Exists(FileToRead))
+                {
+                    File.Delete(FileToRead);
+                }
+
+            }
+            */
+
             //Leer el archivo JSON y obtener los detalles para imprimir
             string[] lines = File.ReadAllLines(FileToRead);
             string text = "";
