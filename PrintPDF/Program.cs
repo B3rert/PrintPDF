@@ -67,7 +67,6 @@ namespace PrintPDF
             string myuuidAsString = myuuid.ToString().Replace("-", string.Empty);
             int lengthuuid = myuuidAsString.Length;
 
-
             Console.WriteLine("Your UUID is: " + myuuidAsString + " and length "+ lengthuuid);
 
             if (valueKey != "usuario")
@@ -97,7 +96,6 @@ namespace PrintPDF
 
             //verficar inicio de sesiona y avtivacion del producto
 
-           
             //Hasta aquí nuevas adiciones
 
             return;
@@ -109,7 +107,6 @@ namespace PrintPDF
                 {
                     File.Delete(FileToRead);
                 }
-
             }
             */
 
@@ -161,6 +158,7 @@ namespace PrintPDF
                     pagesPdf = matches.Count;
                 }
             }
+            
             Console.WriteLine("Listo.");
 
             /*
@@ -217,8 +215,7 @@ namespace PrintPDF
                     file.Attributes = FileAttributes.Normal;
                     File.Delete(file.FullName);
                 }
-                catch { }
+                catch {}
         }
-
     }
 }
