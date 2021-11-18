@@ -6,14 +6,58 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace PrintPDF
 {
     class Program
     {
+        //Texto a hexadecimal
+        public static string ToHexString(string str)
+        {
+            string hexOutput = "";
+            char[] values = str.ToCharArray();
+            foreach (char letter in values)
+            {
+                int value = Convert.ToInt32(letter);
+                hexOutput += String.Format("{0:X}", value);
+            }
+
+            return hexOutput;
+        }
+
+        //string a Array Bytes
+        public static byte[] StringToByteArray(String hex)
+        {
+            int NumberChars = hex.Length;
+            byte[] bytes = new byte[NumberChars / 2];
+            for (int i = 0; i < NumberChars; i += 2)
+                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            return bytes;
+        }
+
         static void Main(string[] args)
         {
+            /*
+            //Recibir Texto (normal a hexadecimal)
+            Console.WriteLine("Texto a Hexadecimal:");
+            String strToHex = Console.ReadLine();
+            //Converit texto a hexadecimal
+            Console.WriteLine(ToHexString(strToHex));
+            //recibir texto (hexadecimal a texto normal)
+            Console.WriteLine("Hexadecimal a texto:");
+            String hexToStr = Console.ReadLine();
+            //Convertir texto a byte de array
+            byte[] byteStr = StringToByteArray(hexToStr); 
+            //Convertir byte de array a hexadecimal
+            String s = Encoding.UTF8.GetString(byteStr, 0, byteStr.Length);
+            Console.WriteLine(s);
+            Console.ReadKey();  
+
+            return;
+            */
+            /*
 
             //Buscar datos permannetes
 
@@ -24,42 +68,40 @@ namespace PrintPDF
             int lengthuuid = myuuidAsString.Length;
 
 
-
             Console.WriteLine("Your UUID is: " + myuuidAsString + " and length "+ lengthuuid);
 
             if (valueKey != "usuario")
             {
-            Console.WriteLine(valueKey);
-
+                Console.WriteLine(valueKey);
             }
             else
             {
                 Console.WriteLine("No se han enctrodado datos");
             }
 
-
             //No hay datos guardados mostar mensajes para activar el producto
             
             Console.WriteLine("Usuario:");
             String user = Console.ReadLine();
-            Console.WriteLine("Cpntraseña:");
-            String pass = Console.ReadLine();
             Properties.Settings.Default.Usuario = user;
             Properties.Settings.Default.Save();
-            Console.WriteLine("El texto introducido es: " + user +" "+ pass);
+
+            Console.WriteLine("Contraseña:");
+            String pass = Console.ReadLine();
+
+            Console.WriteLine("Clave del producto:");
+            String key = Console.ReadLine();
+
+            Console.WriteLine( user +" "+ pass + " " + key);
             Console.ReadKey();
 
             //verficar inicio de sesiona y avtivacion del producto
 
-            //Guardar datos permanentes
-
-
-
-            var currentDirectory = Directory.GetCurrentDirectory(); //Ruta donden se encuntra el programa
-            string FileToRead = currentDirectory + @"\PrintingDetails.json"; //Archivo JSON con detalles de impresion
+           
+            //Hasta aquí nuevas adiciones
 
             return;
-
+            */
             /*
             if (File.Exists(FileToRead))
             {
@@ -70,6 +112,10 @@ namespace PrintPDF
 
             }
             */
+
+            //Guardar datos permanentes
+            var currentDirectory = Directory.GetCurrentDirectory(); //Ruta donden se encuntra el programa
+            string FileToRead = currentDirectory + @"\PrintingDetails.json"; //Archivo JSON con detalles de impresion
 
             //Leer el archivo JSON y obtener los detalles para imprimir
             string[] lines = File.ReadAllLines(FileToRead);
