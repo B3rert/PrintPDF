@@ -23,7 +23,6 @@ namespace PrintPDF
                 int value = Convert.ToInt32(letter);
                 hexOutput += String.Format("{0:X}", value);
             }
-
             return hexOutput;
         }
 
@@ -127,7 +126,8 @@ namespace PrintPDF
             string PDFtoPrint = currentDirectory +@"\"+jsonBody.report_name;
 
             //Descarga el archivo PDF que se 
-            Console.Write("Preparando archivo... ");
+            Console.Write("Preparando archivo...");
+
             using (var progress = new ProgressBar())
             {
                 for (int i = 0; i <= 100; i++) {
