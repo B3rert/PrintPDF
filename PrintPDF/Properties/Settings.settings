@@ -8,5 +8,11 @@
     <Setting Name="Clave" Type="System.String" Scope="User">
       <Value Profile="(Default)">password</Value>
     </Setting>
+    <Setting Name="Licencia" Type="System.String" Scope="User">
+      <Value Profile="(Default)">licencia</Value>
+    </Setting>
+    <Setting Name="ApisLicense" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://localhost:44345/api/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
