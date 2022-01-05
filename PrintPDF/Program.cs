@@ -758,7 +758,7 @@ namespace PrintPDF
         static void Main(string[] args)
         {
 
-         //  Properties.Settings.Default.Reset();
+       //  Properties.Settings.Default.Reset();
 
             if (verifylicense())
             {
