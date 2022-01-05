@@ -12,31 +12,15 @@ using System.Text.RegularExpressions;
 namespace PrintPDF
 {
     class Program
-    { 
-        //Texto a hexadecimal
-        public static string ToHexString(string str)
+    {
+
+        static void Main(string[] args)
         {
-            string hexOutput = "";
-            char[] values = str.ToCharArray();
+            //Properties.Settings.Default.Reset();
 
-            foreach (char letter in values)
-            {
-                int value = Convert.ToInt32(letter);
-                hexOutput += String.Format("{0:X}", value);
-            }
-            return hexOutput;
+            startService();
         }
-
-        //string a Array Bytes
-        public static byte[] StringToByteArray(String hex)
-        {
-            int NumberChars = hex.Length;
-            byte[] bytes = new byte[NumberChars / 2];
-            for (int i = 0; i < NumberChars; i += 2)
-                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
-            return bytes;
-        }
-
+    
         private static void startPrint()
         {
             var currentDirectory = Directory.GetCurrentDirectory(); //Ruta donden se encuntra el programa
@@ -688,11 +672,8 @@ namespace PrintPDF
             return $"{year}-{month}-{day}T18:00:44.206Z";
         }
 
-       
-        static void Main(string[] args)
+        private static void startService()
         {
-            //Properties.Settings.Default.Reset();
-
             if (verifylicense())
             {
                 string license = Properties.Settings.Default.Licencia;
@@ -724,13 +705,15 @@ namespace PrintPDF
                                 {
                                     Console.WriteLine("No se ha encontrado la licencia guardada en este dispositivo");
                                     Console.ReadKey();
-                                }else if (licenses.Count > 0)
+                                }
+                                else if (licenses.Count > 0)
                                 {
                                     if (licenses[0].estado == 3)
                                     {
                                         Console.WriteLine("La licencia no se encunetra activa o ya venció, contactanos para poder ayudarte");
                                         Console.ReadKey();
-                                    }else if (licenses[0].estado == 1)
+                                    }
+                                    else if (licenses[0].estado == 1)
                                     {
                                         if (DateTime.Now.Date > licenses[0].fecha_Vencimiento.Date)
                                         {
@@ -749,7 +732,7 @@ namespace PrintPDF
                 }
                 catch (WebException ex)
                 {
-                    Console.WriteLine("Algo salio mal: "+ ex.Message);
+                    Console.WriteLine("Algo salio mal: " + ex.Message);
                     Console.ReadKey();
                 }
             }
@@ -805,7 +788,8 @@ namespace PrintPDF
                     {
                         return;
                     }
-                    else {
+                    else
+                    {
                         bool validOptPlan;
                         string optPlan;
                         do
@@ -854,7 +838,7 @@ namespace PrintPDF
                         if (validOptPlan)
                         {
 
-                            if (stringToInt(optPlan) == 3 )
+                            if (stringToInt(optPlan) == 3)
                             {
                                 return;
                             }
