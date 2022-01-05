@@ -12,17 +12,11 @@ using System.Text.RegularExpressions;
 
 namespace PrintPDF
 {
-   
     class Program
     { 
-
-       
-
         //Texto a hexadecimal
         public static string ToHexString(string str)
         {
-
-
             string hexOutput = "";
             char[] values = str.ToCharArray();
             foreach (char letter in values)
@@ -154,51 +148,7 @@ namespace PrintPDF
                 catch { }
         }
 
-        
-        private static void GetCuentaCorrentista(string filtro)
-        {
-            String apis = Properties.Settings.Default.ApisLicense;
-
-            var url = $"{apis}CuentaCorrentista/{filtro}";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
-            try
-            {
-                using (WebResponse response = request.GetResponse())
-                {
-                    using (Stream strReader = response.GetResponseStream())
-                    {
-                        if (strReader == null) return;
-                        using (StreamReader objReader = new StreamReader(strReader))
-                        {
-                            string responseBody = objReader.ReadToEnd();
-                            // Do something with responseBody
-
-                            List<CuentaCorrentistaModel> myDeserializedCuentas = 
-                                new List<CuentaCorrentistaModel>();
-
-                            myDeserializedCuentas = 
-                                JsonConvert.DeserializeObject<List<CuentaCorrentistaModel>>(responseBody);
-
-                            Console.WriteLine(myDeserializedCuentas[0].factura_NIT);
-                            Console.WriteLine(myDeserializedCuentas.Count);
-                            Console.WriteLine("Es asincrono?");
-                            Console.ReadKey();
-
-                        }
-                    }
-                }
-            }
-            catch (WebException ex)
-            {
-                // Handle error
-                Console.WriteLine("Aglo salio mal: " + ex.Message);
-                Console.ReadKey();
-            }
-        }
-
+        //Verifica si hay una licencia guardada, el valor por defecto es "licencia"
         private static bool verifylicense()
         {
             string license = Properties.Settings.Default.Licencia;
@@ -214,7 +164,7 @@ namespace PrintPDF
 
         }
 
-
+        //Verifica si un string es numerico
         private static bool isNumber(string number)
         {
             if (number.All(char.IsDigit))
@@ -227,11 +177,13 @@ namespace PrintPDF
             }
         }
 
+        //convierte string a entero
         private static int stringToInt(string str_var)
         {
             return Int32.Parse(str_var);
         }
         
+        //verificar si un correo es valido
         private static bool IsValidEmail(string email)
         {
             try
@@ -245,6 +197,7 @@ namespace PrintPDF
             }
         }
 
+        //Proceso cuenta correntista
         private static void newCuentaCorrentista()
         {
             //buscar cuenta
@@ -304,7 +257,6 @@ namespace PrintPDF
                 
                 CuentaCorrentistaParamsModel cuentaParams = new CuentaCorrentistaParamsModel();
 
-
                 do
                 {
                     Console.Clear();    
@@ -317,7 +269,6 @@ namespace PrintPDF
                         Console.WriteLine("No se ha ingresado ningun valor");
                         Console.ReadKey();
                     }
-
 
                 } while (string.IsNullOrEmpty(cuentaParams.name));
 
@@ -604,14 +555,10 @@ namespace PrintPDF
                         validEmail = false;
                     }
 
-
-
                 } while (!validEmail);
 
                 if (validEmail)
                 {
-                   
-
                     var url = $"{apis}CuentaCorrentista/{correo}";
                     var request = (HttpWebRequest)WebRequest.Create(url);
                     request.Method = "GET";
@@ -714,7 +661,6 @@ namespace PrintPDF
                                             newCuentaCorrentista();
                                         }
                                     }
-
                                 }
                             }
                         }
@@ -730,6 +676,7 @@ namespace PrintPDF
             }
         }
 
+        //retorna la fecha que será en un año
         private static string getDateNextYear()
         {
             DateTime dateTime = DateTime.Now;
@@ -750,7 +697,6 @@ namespace PrintPDF
                 month = $"0{month}";
             }
             
-
             return $"{year}-{month}-{day}T18:00:44.206Z";
         }
 
