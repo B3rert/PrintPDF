@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace PrintPDF
@@ -202,8 +201,8 @@ namespace PrintPDF
         {
             //buscar cuenta
             String apis = Properties.Settings.Default.ApisLicense;
-            bool validOptCuentaCorrentista = false;
-            string optCuentaCorrentista = "";
+            string optCuentaCorrentista;
+            bool validOptCuentaCorrentista;
 
             do
             {
@@ -229,7 +228,6 @@ namespace PrintPDF
                         if (opt == 1 || opt == 2 || opt == 3)
                         {
                             validOptCuentaCorrentista = true;
-
                         }
                         else
                         {
@@ -272,7 +270,8 @@ namespace PrintPDF
 
                 } while (string.IsNullOrEmpty(cuentaParams.name));
 
-                bool validEmal = false;
+                bool validEmal;
+
                 do
                 {
                     Console.Clear();
@@ -297,10 +296,10 @@ namespace PrintPDF
                         validEmal = true;
                     }
 
-
                 } while (!validEmal);
 
-                bool validPhone = false;
+                bool validPhone;
+
                 do
                 {
                     Console.Clear();
@@ -356,6 +355,7 @@ namespace PrintPDF
                 requestPostCuentaCorrentista.Method = "POST";
                 requestPostCuentaCorrentista.ContentType = "application/json";
                 requestPostCuentaCorrentista.Accept = "application/json";
+                
                 using (var streamWriterPostCuentaCorrentista = new StreamWriter(requestPostCuentaCorrentista.GetRequestStream()))
                 {
                     streamWriterPostCuentaCorrentista.Write(jsonPostCuentaCorrentista);
@@ -380,7 +380,6 @@ namespace PrintPDF
                                 if (resJsonPost.status == 1)
                                 {
                                     //crear cuenta cuenta
-
                                     CtaCtaModel ctaCta = new CtaCtaModel()
                                     {
                                         cuenta_Correntista = stringToInt(resJsonPost.uuiid),
@@ -388,13 +387,13 @@ namespace PrintPDF
                                         direccion_1 = cuentaParams.adress
                                     };
 
-                                  var urlPostCtaCta = $"{apis}CuentaCta";
-
+                                    var urlPostCtaCta = $"{apis}CuentaCta";
                                     var requestostCtaCta = (HttpWebRequest)WebRequest.Create(urlPostCtaCta);
                                     string jsonPostCtaCta = JsonConvert.SerializeObject(ctaCta);
                                     requestostCtaCta.Method = "POST";
                                     requestostCtaCta.ContentType = "application/json";
                                     requestostCtaCta.Accept = "application/json";
+                                    
                                     using (var streamWriterPostCtaCta = new StreamWriter(requestostCtaCta.GetRequestStream()))
                                     {
                                         streamWriterPostCtaCta.Write(jsonPostCtaCta);
@@ -432,12 +431,12 @@ namespace PrintPDF
                                                         };
 
                                                         var urlPostLicense = $"{apis}License";
-
                                                         var requestPostLicense = (HttpWebRequest)WebRequest.Create(urlPostLicense);
                                                         string json = JsonConvert.SerializeObject(paramsLicense);
                                                         requestPostLicense.Method = "POST";
                                                         requestPostLicense.ContentType = "application/json";
                                                         requestPostLicense.Accept = "application/json";
+                                                        
                                                         using (var streamWriter = new StreamWriter(requestPostLicense.GetRequestStream()))
                                                         {
                                                             streamWriter.Write(json);
@@ -453,8 +452,6 @@ namespace PrintPDF
                                                                     if (strReaderpostLicense == null) return;
                                                                     using (StreamReader objReaderPostLicense = new StreamReader(strReaderpostLicense))
                                                                     {
-
-
                                                                         string responseBodyPostlicense = objReaderPostLicense.ReadToEnd();
                                                                         // Do something with responseBody
 
@@ -474,9 +471,7 @@ namespace PrintPDF
                                                                             Console.WriteLine("Algo salió mal: " + resJson.uuiid);
                                                                             Console.ReadKey();
                                                                             newCuentaCorrentista();
-
                                                                         }
-
                                                                     }
                                                                 }
                                                             }
@@ -511,7 +506,6 @@ namespace PrintPDF
                                     Console.WriteLine("Algo salió mal: " + resJsonPost.uuiid);
                                     Console.ReadKey();
                                     newCuentaCorrentista();
-
                                 }
                             }
                         }
@@ -524,13 +518,11 @@ namespace PrintPDF
                     newCuentaCorrentista();
                     // Handle error
                 }
-
             }
             else if (stringToInt(optCuentaCorrentista) == 1)
             {
-                string correo = "";
-                bool validEmail = false;
-
+                string correo;
+                bool validEmail;
                 do
                 {
                     Console.Clear();
@@ -587,7 +579,6 @@ namespace PrintPDF
                                         Console.WriteLine("No hay ninguna cuneta asociada a este correo");
                                         Console.ReadKey();
                                         newCuentaCorrentista();
-
                                     }
                                     else
                                     {
@@ -600,16 +591,15 @@ namespace PrintPDF
                                             fecha_Vencimiento = getDateNextYear(),
                                             orden = 1,
                                             userName = myDeserializedCuentas[0].factura_Nombre
-
                                         };
 
                                         var urlPostLicense = $"{apis}License";
-
                                         var requestPostLicense = (HttpWebRequest)WebRequest.Create(urlPostLicense);
                                         string json =JsonConvert.SerializeObject(paramsLicense);
                                         requestPostLicense.Method = "POST";
                                         requestPostLicense.ContentType = "application/json";
                                         requestPostLicense.Accept = "application/json";
+                                        
                                         using (var streamWriter = new StreamWriter(requestPostLicense.GetRequestStream()))
                                         {
                                             streamWriter.Write(json);
@@ -625,8 +615,6 @@ namespace PrintPDF
                                                     if (strReaderpostLicense == null) return;
                                                     using (StreamReader objReaderPostLicense = new StreamReader(strReaderpostLicense))
                                                     {
-
-
                                                         string responseBodyPostlicense = objReaderPostLicense.ReadToEnd();
                                                         // Do something with responseBody
 
@@ -648,7 +636,6 @@ namespace PrintPDF
                                                             newCuentaCorrentista();
 
                                                         }
-
                                                     }
                                                 }
                                             }
@@ -703,8 +690,7 @@ namespace PrintPDF
        
         static void Main(string[] args)
         {
-
-       //  Properties.Settings.Default.Reset();
+            //Properties.Settings.Default.Reset();
 
             if (verifylicense())
             {
@@ -717,6 +703,7 @@ namespace PrintPDF
                 request.Method = "GET";
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
+
                 try
                 {
                     using (WebResponse response = request.GetResponse())
@@ -767,9 +754,8 @@ namespace PrintPDF
             }
             else
             {
-               bool validOptBuyLicense = false;
-                string optBuyLicense = "";
-
+                bool validOptBuyLicense;
+                string optBuyLicense;
                 do
                 {
                     Console.Clear();
@@ -777,9 +763,7 @@ namespace PrintPDF
                     "1. Comprar licencia.\n" +
                     "2. Cancelar.");
 
-
-                   optBuyLicense = Console.ReadLine();
-
+                    optBuyLicense = Console.ReadLine();
 
                     if (string.IsNullOrEmpty(optBuyLicense))
                     {
@@ -795,7 +779,7 @@ namespace PrintPDF
                             if (opt == 1 || opt == 2)
                             {
                                 validOptBuyLicense = true;
-                                
+
                             }
                             else
                             {
@@ -821,9 +805,8 @@ namespace PrintPDF
                         return;
                     }
                     else {
-
-                        bool validOptPlan = false;
-                        string optPlan = "";
+                        bool validOptPlan;
+                        string optPlan;
                         do
                         {
                             Console.Clear();
@@ -833,7 +816,6 @@ namespace PrintPDF
                            "3. Cancelar");
 
                             optPlan = Console.ReadLine();
-                            
 
                             if (string.IsNullOrEmpty(optPlan))
                             {
@@ -877,10 +859,8 @@ namespace PrintPDF
                             }
                             else
                             {
-
-                                bool validOptCargoAbono = false;
-                                string optCargoAbono = "";
-
+                                bool validOptCargoAbono;
+                                string optCargoAbono;
                                 do
                                 {
                                     Console.Clear();
@@ -923,7 +903,6 @@ namespace PrintPDF
                                     }
                                 } while (!validOptCargoAbono);
 
-
                                 if (validOptCargoAbono)
                                 {
                                     if (stringToInt(optCargoAbono) == 2)
@@ -937,20 +916,9 @@ namespace PrintPDF
                                 }
                             }
                         }
-
                     }
-
                 }
-
             }
-
-              // Console.ReadKey();
-
-            //GetCuentaCorrentista("servicioalcliente%40demosoftonline.com");
-
-
-            //  startPrint();
-
         }
     }
 }
