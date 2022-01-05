@@ -474,7 +474,7 @@ namespace PrintPDF
                                                             cuenta_correntista = stringToInt(resJsonPost.uuiid),
                                                             cuenta_cta = resCtaCta.message,
                                                             application = 1,
-                                                            fecha_Vencimiento = "2022-12-28T19:29:10.073Z",
+                                                            fecha_Vencimiento = getDateNextYear(),
                                                             orden = 1,
                                                             userName = cuentaParams.name
 
@@ -650,7 +650,7 @@ namespace PrintPDF
                                             cuenta_correntista = myDeserializedCuentas[0].cuenta_Correntista,
                                             cuenta_cta = "1",
                                             application = 1,
-                                            fecha_Vencimiento = "2021-12-28T19:29:10.073Z",
+                                            fecha_Vencimiento = getDateNextYear(),
                                             orden = 1,
                                             userName = myDeserializedCuentas[0].factura_Nombre
 
@@ -728,6 +728,30 @@ namespace PrintPDF
                     }
                 }
             }
+        }
+
+        private static string getDateNextYear()
+        {
+            DateTime dateTime = DateTime.Now;
+
+            int year = dateTime.Year;
+            string month = dateTime.Month.ToString();
+            string day = dateTime.Day.ToString();
+
+            year++;
+            
+            if (day.Length == 1)
+            {
+                day = $"0{day}";
+            }
+
+            if (month.Length == 1)
+            {
+                month = $"0{month}";
+            }
+            
+
+            return $"{year}-{month}-{day}T18:00:44.206Z";
         }
 
        
