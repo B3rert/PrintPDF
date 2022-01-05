@@ -18,6 +18,7 @@ namespace PrintPDF
         {
             string hexOutput = "";
             char[] values = str.ToCharArray();
+
             foreach (char letter in values)
             {
                 int value = Convert.ToInt32(letter);
