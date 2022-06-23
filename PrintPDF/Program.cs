@@ -18,7 +18,8 @@ namespace PrintPDF
         {
             //Properties.Settings.Default.Reset();
 
-            startService();
+            //startService();
+            startPrint();
         }
     
         private static void startPrint()
@@ -347,6 +348,7 @@ namespace PrintPDF
                     streamWriterPostCuentaCorrentista.Flush();
                     streamWriterPostCuentaCorrentista.Close();
                 }
+
                 try
                 {
                     using (WebResponse responsePostCuentaCorrentista = requestPostCuentaCorrentista.GetResponse())
